@@ -9,9 +9,6 @@ export default function NavBar() {
       <Navbar sticky="top" className="bg-white shadow p-2 mb-3">
         <Container>
         <Nav>
-          <Nav.Link as={NavLink} to="/">
-            Home
-          </Nav.Link>
           <Nav.Link as={NavLink} to="/Store">
             Store
           </Nav.Link>
