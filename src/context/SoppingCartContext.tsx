@@ -12,6 +12,7 @@ type FuncForItem = {
   decreasItem: (id: number) => void;
   removeItem: (id: number) => void;
   cartQuantity : number;
+  Items : ItemType[];
 };
 type ItemType = {
   id: number;
@@ -30,6 +31,7 @@ export function ShoppingCartProvider({ children }: reactNodes) {
   const cartQuantity = Item.reduce((acc,item)=>{
     return item.quantity + acc ;
   },0)
+  const Items= Item;
   function getItem(id: number) {
     return Item.find((item) => item.id === id)?.quantity || 0;
   }
@@ -59,9 +61,7 @@ export function ShoppingCartProvider({ children }: reactNodes) {
     setItem((currentItme) => {
       let newItems: ItemType[]
       if (currentItme.find((item) => item.id === id)?.quantity === 1) {
-         newItems = currentItme.filter((item) => {
-          item.id !== id;
-        });
+         newItems = currentItme.filter((item) => item.id !== id);
         return newItems;
       } else {
         const newItems: ItemType[] = currentItme.map((item) => {
@@ -78,9 +78,7 @@ export function ShoppingCartProvider({ children }: reactNodes) {
   function removeItem(id : number){
     setItem((currentItme) => {
       let newItems: ItemType[]
-         newItems = currentItme.filter((item) => {
-          item.id !== id;
-        });
+         newItems = currentItme.filter((item) =>  item.id !== id);
         return newItems;
   })}
 
@@ -92,6 +90,7 @@ export function ShoppingCartProvider({ children }: reactNodes) {
        removeItem,
        openCart,
        closeCart,
+       Items,
        cartQuantity }}>
       {children}
       <ShoppingCartSection isOpen={isOpen}/>
